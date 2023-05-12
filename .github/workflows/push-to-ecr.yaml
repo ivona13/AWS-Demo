@@ -1,4 +1,4 @@
-name: Deploy to ECR
+name: Push to ECR
 
 on:
 #  push:
@@ -7,7 +7,7 @@ on:
 
 env:
   VERSION_FILE: build.gradle
-  VERSION_EXTRACT_PATTERN: version\s*=\s*"([^"]+)"
+  VERSION_EXTRACT_PATTERN: version\s*=\s*'([^']+)'
   ECR_REPOSITORY: code-of-us
 
 jobs:
