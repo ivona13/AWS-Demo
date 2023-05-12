@@ -55,5 +55,5 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ env.RELEASE_VERSION }}
         run: |
-          docker build --build-arg VERSION=${{ env.RELEASE_VERSION }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --platform linux/amd64
+          docker build --build-arg VERSION=${{ env.RELEASE_VERSION }} --platform linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
