@@ -1,4 +1,4 @@
-name: Deploy Cluster
+name: Deploy Elastic Beanstalk
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
       - name: Deploy Amazon Elastic Beanstalk
         uses: aws-actions/aws-cloudformation-github-deploy@master
         with:
-          name: ${{ steps.env-name.outputs.environment }}-cluster
+          name: ${{ steps.env-name.outputs.environment }}
           template: eb-stack.yaml
           no-fail-on-empty-changeset: "1"
 #          parameter-overrides: >-
