@@ -1,5 +1,39 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
+  AWSEBLoadBalancer:
+    Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
+    Properties:
+      AvailabilityZones:
+        - YOUR_SUBNETS
+        - YOUR_SUBNETS
+        - YOUR_SUBNETS
+      ConnectionDrainingPolicy:
+        Enabled: true
+        Timeout: 20
+      CrossZone: true
+      HealthCheck:
+        HealthyThreshold: '3'
+        Interval: '10'
+        Target:
+          'Fn::Join':
+            - ''
+            - - HTTP
+              - ':'
+              - 80
+              - '/'
+        Timeout: '5'
+        UnhealthyThreshold: '5'
+      SecurityGroups:
+        - Ref: AWSEBSecurityGroup
+      Scheme: internal
+      Listeners:
+        - InstancePort: 80
+          LoadBalancerPort: '80'
+          Protocol: HTTP
+        - InstancePort: 80
+          LoadBalancerPort: '443'
+          Protocol: HTTPS
+          SSLCertificateId: arn:aws:acm:us-east-1:123456789012:certificate/your-certificate-arn
   sampleApplication:
     Type: AWS::ElasticBeanstalk::Application
     Properties:
@@ -25,19 +59,19 @@ Resources:
         Ref: sampleApplication
       Description: AWS ElasticBeanstalk Sample Configuration Template
       OptionSettings:
-       # load balancer
-        - Namespace: aws:elb:listener:443
-          OptionName: ListenerProtocol
-          Value: HTTPS
-        - Namespace: aws:elb:listener:443
-          OptionName: SSLCertificateId
-          Value: arn:aws:acm:eu-north-1:510513319638:certificate/01e9ac86-6fa9-4532-b33d-efd7944c62a2
-        - Namespace: aws:elb:listener:443
-          OptionName: InstancePort
-          Value: 80
-        - Namespace: aws:elb:listener:443
-          OptionName: InstanceProtocol
-          Value: HTTP
+#       # load balancer
+#        - Namespace: aws:elb:listener:443
+#          OptionName: ListenerProtocol
+#          Value: HTTPS
+#        - Namespace: aws:elb:listener:443
+#          OptionName: SSLCertificateId
+#          Value: arn:aws:acm:eu-north-1:510513319638:certificate/01e9ac86-6fa9-4532-b33d-efd7944c62a2
+#        - Namespace: aws:elb:listener:443
+#          OptionName: InstancePort
+#          Value: 80
+#        - Namespace: aws:elb:listener:443
+#          OptionName: InstanceProtocol
+#          Value: HTTP
         - Namespace: aws:ec2:vpc
           OptionName: VPCId
           Value: vpc-7dd17514  # Specify your VPC ID here
