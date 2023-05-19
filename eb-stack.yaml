@@ -3,6 +3,7 @@ Resources:
   AWSEBLoadBalancer:
     Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
     Properties:
+      VpcId: vpc-7dd17514
       AvailabilityZones:
         - eu-north-1c
       ConnectionDrainingPolicy:
@@ -21,8 +22,8 @@ Resources:
               - '/'
         Timeout: '5'
         UnhealthyThreshold: '5'
-      SecurityGroups:
-        - Ref: AWSEBSecurityGroup
+#      SecurityGroups:
+#        - Ref: AWSEBSecurityGroup
       Scheme: internal
       Listeners:
         - InstancePort: 80
