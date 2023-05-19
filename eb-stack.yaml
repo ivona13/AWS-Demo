@@ -3,10 +3,6 @@ Resources:
   AWSEBLoadBalancer:
     Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
     Properties:
-      AvailabilityZones:
-        - YOUR_SUBNETS
-        - YOUR_SUBNETS
-        - YOUR_SUBNETS
       ConnectionDrainingPolicy:
         Enabled: true
         Timeout: 20
@@ -23,8 +19,6 @@ Resources:
               - '/'
         Timeout: '5'
         UnhealthyThreshold: '5'
-      SecurityGroups:
-        - Ref: AWSEBSecurityGroup
       Scheme: internal
       Listeners:
         - InstancePort: 80
