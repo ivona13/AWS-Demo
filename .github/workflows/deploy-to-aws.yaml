@@ -35,7 +35,7 @@ jobs:
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
 
       - name: Deploy Amazon Elastic Beanstalk
-        uses: aws-actions/aws-cloudformation-github-deploy@master
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ${{ steps.env-name.outputs.environment }}
           template: eb-stack.yaml
