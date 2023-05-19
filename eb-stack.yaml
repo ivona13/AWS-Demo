@@ -3,6 +3,8 @@ Resources:
   AWSEBLoadBalancer:
     Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
     Properties:
+      AvailabilityZones:
+        - eu-north-1c
       ConnectionDrainingPolicy:
         Enabled: true
         Timeout: 20
@@ -19,6 +21,8 @@ Resources:
               - '/'
         Timeout: '5'
         UnhealthyThreshold: '5'
+      SecurityGroups:
+        - Ref: AWSEBSecurityGroup
       Scheme: internal
       Listeners:
         - InstancePort: 80
